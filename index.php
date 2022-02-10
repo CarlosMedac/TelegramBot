@@ -3,9 +3,10 @@ $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8
 $update = json_decode(file_get_contents("php://input"), TRUE);
 
 $chatId = $update["message"]["chat"]["id"];
-$message = "hola";
+$message = $update["message"]["text"];
 
 if ($message=="hola") {
-    file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
+    $hola=file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
     }
+    echo $hola;
 ?>
