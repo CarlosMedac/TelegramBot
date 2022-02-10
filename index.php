@@ -7,11 +7,11 @@ $message = $update["message"]["text"];
 $hoy = date("H:i:s")
 
 if ($message=="hola") {
-    $hola=file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
     }
-    if ($message=="hora") {
-        $hola=file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=".$hoy);
-        }
+if ($message=="hora") {
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=".$hoy);
+    }
 
     // if (strpos($message, "/tiempo") === 0) {
     //     $location = substr($message, 8);
