@@ -4,7 +4,7 @@ $update = json_decode(file_get_contents("php://input"), TRUE);
 
 $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
-$hoy = date("H:i:s")
+$hoy = date("H:i:s");
 
 if ($message=="hola") {
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
