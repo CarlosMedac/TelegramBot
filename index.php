@@ -8,5 +8,10 @@ $message = $update["message"]["text"];
 if ($message=="hola") {
     $hola=file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
     }
-    echo $hola;
+
+    if (strpos($message, "/tiempo") === 0) {
+        $location = substr($message, 8);
+        $weather = json_decode(file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=".$location."&appid=mytoken"), TRUE)["weather"][0]["main"];
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $weather);
+        }
 ?>
