@@ -4,13 +4,17 @@ $update = json_decode(file_get_contents("php://input"), TRUE);
 
 $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
-$hoy = date("H:i:s");
+$hora = date("H:i:s");
+$dia = date();
 
 if ($message=="hola") {
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
     }
-if ($message=="hora") {
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=".$hoy);
+elseif ($message=="hora") {
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=La hora es".$hora);
+    }
+elseif ($message=="dia") {
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=La hora es".$dia);
     }
 
     // if (strpos($message, "/tiempo") === 0) {
