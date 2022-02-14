@@ -38,7 +38,7 @@ elseif (strpos($message, "/tiempo") === 0) {
         }
 
 elseif($message=="/noticias"){
-        include("simple_html_dom.php");
+        include("./simple_html_dom.php");
 
         $context stream_context_create(array('http' => array('header' => 'Accept: application/xml')));
         $url="https://www.europapress.es/rss/rss.aspx";
