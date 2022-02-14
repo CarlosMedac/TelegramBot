@@ -23,9 +23,18 @@ elseif ($message=="dia") {
 }
 elseif (strpos($message, "/tiempo") === 0) {
         $location = substr($message, 8);
-        $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/home"),true);
-        $tiempo = $weather["ciudades"][0]["name"]; 
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $tiempo);
+        $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
+        $tiempo = $weather["provincias"];
+        
+        for($i=0;$i<count($tiempo);$i++){
+            $tiempo = $weather["provincias"][$i]["name"]; 
+            if($tiempo == $location){
+                $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
+                break;
+            }
+        }
+        
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $codigoProvincia);
         }
 // elseif($message=="/noticias"){
 //         include("simple_html_dom.php");
