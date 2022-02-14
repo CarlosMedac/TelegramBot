@@ -18,7 +18,7 @@ elseif ($message=="dia") {
      
     $diassemana = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
     $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
-    file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Today is ".$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') );
+    file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Hoy es ".$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') );
 
     }
 elseif (strpos($message, "/tiempo") === 0) {
