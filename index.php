@@ -12,7 +12,7 @@ if ($message=="hola") {
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
     }
 elseif ($message=="hora") {
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=La hora es ".$hora);
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
     }
 elseif ($message=="dia") {
      
@@ -20,11 +20,31 @@ elseif ($message=="dia") {
     $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
     file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Hoy es ".$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') );
 
-    }
+}
 elseif (strpos($message, "/tiempo") === 0) {
         $location = substr($message, 8);
         $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/home"),true);
-        $tiempo = $weather["ciudades"]["name"]["Barcelona"]["description"]; 
+        $tiempo = $weather["ciudades"][0]["name"]; 
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $tiempo);
         }
+elseif($message=="/noticias"){
+        include("simple_html_dom.php");
+
+        $context stream_context_create(array('http' => array('header' => 'Accept: application/xml')));
+        $url="https://www.europapress.es/rss/rss.aspx";
+
+        $xmlstring = file_get_contents($url, false, $context);
+
+        $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXMLNOCDATA);
+        $json = json_decode($xml);
+        $array = json_decode($json,TRUE);
+
+        for($i=0; $i<9;$i++){
+            $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'>+info</a>";
+            file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=".$titulos);
+        }
+}
+
+
+
 ?>
