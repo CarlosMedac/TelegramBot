@@ -38,22 +38,6 @@ elseif (strpos($message, "/tiempo") === 0) {
         }
 
 elseif($message=="/noticias"){
-        // include("simple_html_dom.php");
-
-        // $context stream_context_create(array('http' => array('header' => 'Accept: application/xml')));
-        // $url="https://www.europapress.es/rss/rss.aspx";
-
-        // $xmlstring = file_get_contents($url, false, $context);
-
-        // $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
-        // $json = json_decode($xml);
-        // $array = json_decode($json,TRUE);
-        
-
-        // for($i=0; $i<9;$i++){
-        //     $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'>+info</a>";
-        //     file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=".$titulos);
-        // }
     include("simple_html_dom.php");
 
 	$context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
@@ -67,8 +51,8 @@ elseif($message=="/noticias"){
 
 	for ($i=0; $i < 9; $i++) { 
 		$titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text= ".urlencode($titulos));
 	}
+    file_get_contents($path."/sendmessage?chat_id=".$chatId."&text= ".urlencode($titulos));
     
 }
 
