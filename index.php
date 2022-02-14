@@ -17,7 +17,7 @@ elseif ($message=="hora") {
 elseif ($message=="dia") {
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Today is ".$dia);
     }
-elseif ($message, "/tiempo") {
+elseif ($message== "/tiempo") {
         $location = substr($message, 8);
         $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/home?name=".$location), TRUE)["description"]["temperatures"];
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $weather);
