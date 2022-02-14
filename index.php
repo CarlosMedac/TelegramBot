@@ -32,6 +32,7 @@ elseif (strpos($message, "/tiempo") === 0) {
                 break;
             }
         }
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $codigoProvincia);
         $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
         $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $tiempoDefinitivo);
