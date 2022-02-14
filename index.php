@@ -26,7 +26,7 @@ elseif (strpos($message, "/tiempo") === 0) {
         $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
         $tiempo = $weather["provincias"];
         
-        for($i=0;$i<count($tiempo);$i++){
+        for($i=0;$i<3;$i++){
             $provincias = $weather["provincias"][$i]["name"]; 
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $provincias);
             if($tiempo == $location){
@@ -35,7 +35,7 @@ elseif (strpos($message, "/tiempo") === 0) {
             }
         }
         
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $codigoProvincia);
+        // file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $codigoProvincia);
         }
 // elseif($message=="/noticias"){
 //         include("simple_html_dom.php");
