@@ -19,7 +19,7 @@ elseif ($message=="dia") {
     }
 elseif (strpos($message, "/tiempo") === 0) {
         $location = substr($message, 8);
-        $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/home?name=".$location), TRUE)["description"]["temperatures"];
+        $weather = json_decode(file_get_contents("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/",.$location,"?unitGroup=metric&key=YOUR_API_KEY&contentType=json");
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $weather);
         }
 ?>
