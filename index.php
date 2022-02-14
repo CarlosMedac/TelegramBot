@@ -1,4 +1,5 @@
 <?php
+//https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c/setwebhook?url=https://bottelegramcarlosv2.herokuapp.com
 $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
 $update = json_decode(file_get_contents("php://input"), TRUE);
 
@@ -14,7 +15,7 @@ elseif ($message=="hora") {
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=La hora es ".$hora);
     }
 elseif ($message=="dia") {
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Hoy es".$dia);
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Hoy es ".$dia);
     }
 
     // if (strpos($message, "/tiempo") === 0) {
