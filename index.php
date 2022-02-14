@@ -52,7 +52,7 @@ elseif($message=="/noticias"){
 	for ($i=0; $i < 4; $i++) { 
 		$titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
 	}
-    file_get_contents($path."/sendmessage?chat_id=".$chatId."&text= ".urlencode($titulos));
+    file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text= ".urlencode($titulos));
     
 }
 
