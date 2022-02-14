@@ -33,9 +33,8 @@ elseif (strpos($message, "/tiempo") === 0) {
             }
         }
         $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
-        $tiempoDefinitivo = $tiempoProvincia["today"];
-        $tiempoDefinitivo2= $tiempoDefinitivo["p"];
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $tiempoDefinitivo2);
+        $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $tiempoDefinitivo);
         }
 // elseif($message=="/noticias"){
 //         include("simple_html_dom.php");
