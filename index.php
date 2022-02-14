@@ -27,7 +27,8 @@ elseif (strpos($message, "/tiempo") === 0) {
         $tiempo = $weather["provincias"];
         
         for($i=0;$i<count($tiempo);$i++){
-            $tiempo = $weather["provincias"][$i]["name"]; 
+            $provincias = $weather["provincias"][$i]["name"]; 
+            file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ". $provincias);
             if($tiempo == $location){
                 $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
                 break;
