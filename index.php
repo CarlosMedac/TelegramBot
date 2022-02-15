@@ -63,12 +63,12 @@ $dia = date('l jS \of F Y');
         }
 
 
-function enviarMensaje($chatId,$mensaje,$force){
+function enviarMensaje($Id,$mensaje,$force){
     if($force==True){
         $reply_mark = array('force_reply'=>True);
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup='".json_encode(reply_mark)."text=".urlencode($mensaje));
+        file_get_contents($path."/sendmessage?chat_id=".$Id."&parse_mode=HTML&reply_markup='".json_encode(reply_mark)."text=".urlencode($mensaje));
     }else{
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text= ".urlencode($mensaje));
+        file_get_contents($path."/sendmessage?chat_id=".$Id."&parse_mode=HTML&text= ".urlencode($mensaje));
     }
     
 }
