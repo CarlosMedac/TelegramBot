@@ -7,13 +7,14 @@ $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 $reply_a = explode(' ',$reply);
+$reply_mark = array('force_reply'=>True);
 $hora = date("H:i:s");
 $dia = date('l jS \of F Y');
 // $keyboard=[
 //     ['Hola','XD'],
 //     ['Cancelar'],
 // ]
-
+if(empty($reply)){
         if ($message=="hola") {
                 file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
                 // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
@@ -44,6 +45,7 @@ $dia = date('l jS \of F Y');
         $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ".urlencode($tiempoDefinitivo));
         }
+
         elseif($message=="/noticias"){
             include("simple_html_dom.php");
 
@@ -59,18 +61,10 @@ $dia = date('l jS \of F Y');
             for ($i=0; $i < 4; $i++) { 
                 $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
             }
-            enviarMensaje($chatId,$titulos,TRUE);
+            file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup='".json_encode(reply_mark)."&text= ".urlencode($titulos));
+            
         }
-
-
-function enviarMensaje($Id,$mensaje,$force){
-    if($force==True){
-        $reply_mark = array('force_reply'=>True);
-        file_get_contents($path."/sendmessage?chat_id=".$Id."&parse_mode=HTML&reply_markup='".json_encode(reply_mark)."text=".urlencode($mensaje));
-    }else{
-        file_get_contents($path."/sendmessage?chat_id=".$Id."&parse_mode=HTML&text= ".urlencode($mensaje));
-    }
-    
+        
 }
 
 
