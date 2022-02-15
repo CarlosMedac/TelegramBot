@@ -5,8 +5,8 @@ $update = json_decode(file_get_contents("php://input"), TRUE);
 
 $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
-$reply = $update["message"]["reply_to_message"]["text"];
-$reply_a = explode(' ',$reply);
+// $reply = $update["message"]["reply_to_message"]["text"];
+// $reply_a = explode(' ',$reply);
 $reply_mark = array('force_reply'=>True);
 $hora = date("H:i:s");
 $dia = date('l jS \of F Y');
