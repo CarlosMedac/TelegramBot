@@ -13,7 +13,7 @@ $keyboard=[
     ['Hola','XD'],
     ['Cancelar'],
 ]
-if(empty($reply)){
+if(empty!($reply)){
         if ($message=="hola") {
                 file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
                 $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
@@ -44,8 +44,6 @@ if(empty($reply)){
         $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ".urlencode($tiempoDefinitivo));
         }
-        
-
         elseif($message=="/noticias"){
             include("simple_html_dom.php");
 
