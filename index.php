@@ -14,7 +14,7 @@ $dia = date('l jS \of F Y');
 //     ['Hola','XD'],
 //     ['Cancelar'],
 // ]
-if(empty($reply)){
+
         if ($message=="hola") {
                 file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
                 // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
@@ -65,7 +65,7 @@ if(empty($reply)){
             
         }
         
-}
+
 
 
 
