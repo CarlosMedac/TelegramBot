@@ -9,15 +9,15 @@ $reply = $update["message"]["reply_to_message"]["text"];
 $reply_a = explode(' ',$reply);
 $hora = date("H:i:s");
 $dia = date('l jS \of F Y');
-$keyboard=[
-    ['Hola','XD'],
-    ['Cancelar'],
-]
-if(empty!($reply)){
+// $keyboard=[
+//     ['Hola','XD'],
+//     ['Cancelar'],
+// ]
+
         if ($message=="hola") {
                 file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
-                $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
-                $k=json_encode($key);
+                // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
+                // $k=json_encode($key);
             }
         elseif ($message=="hora") {
                 file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
@@ -62,7 +62,7 @@ if(empty!($reply)){
             enviarMensaje($chatId,$titulos,TRUE);
         }
 
-}
+
 function enviarMensaje($chatId,$mensaje,$force){
     if($force==True){
         $reply_mark = array('force_reply'=>True);
