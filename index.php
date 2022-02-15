@@ -5,23 +5,31 @@ $update = json_decode(file_get_contents("php://input"), TRUE);
 
 $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
+$reply = $update["message"]["reply_to_message"]["text"];
+$reply_a = explode(' ',$reply);
 $hora = date("H:i:s");
 $dia = date('l jS \of F Y');
+$keyboard=[
+    ['Hola','XD'],
+    ['Cancelar'],
+]
+if(empty($reply)){
+        if ($message=="hola") {
+                file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
+                $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
+                $k=json_encode($key);
+            }
+        elseif ($message=="hora") {
+                file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
+            }
+        elseif ($message=="dia") {
+            
+            $diassemana = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
+            file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Hoy es ".$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') );
 
-if ($message=="hola") {
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
-    }
-elseif ($message=="hora") {
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
-    }
-elseif ($message=="dia") {
-     
-    $diassemana = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
-    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
-    file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Hoy es ".$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') );
-
-}
-elseif (strpos($message, "/tiempo") === 0) {
+        }
+        elseif (strpos($message, "/tiempo") === 0) {
         $location = substr($message, 8);
         $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
         $tiempo = $weather["provincias"];
@@ -36,25 +44,37 @@ elseif (strpos($message, "/tiempo") === 0) {
         $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ".urlencode($tiempoDefinitivo));
         }
+        
 
-elseif($message=="/noticias"){
-    include("simple_html_dom.php");
+        elseif($message=="/noticias"){
+            include("simple_html_dom.php");
 
-	$context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
-	$url = "http://www.europapress.es/rss/rss.aspx";
+            $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
+            $url = "http://www.europapress.es/rss/rss.aspx";
 
-	$xmlstring = file_get_contents($url, false, $context);
+            $xmlstring = file_get_contents($url, false, $context);
 
-	$xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
-	$json = json_encode($xml);
-	$array = json_decode($json, TRUE);
+            $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
+            $json = json_encode($xml);
+            $array = json_decode($json, TRUE);
 
-	for ($i=0; $i < 4; $i++) { 
-		$titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
-	}
-    file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text= ".urlencode($titulos));
+            for ($i=0; $i < 4; $i++) { 
+                $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
+            }
+            enviarMensaje($chatId,$titulos,TRUE);
+        }
+
+}
+function enviarMensaje($chatId,$mensaje,$force){
+    if($force==True){
+        $reply_mark = array('force_reply'=>True);
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup='".json_encode(reply_mark)."text=".urlencode($mensaje));
+    }else{
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text= ".urlencode($mensaje));
+    }
     
 }
+
 
 
 
