@@ -42,7 +42,7 @@ if(empty($reply)){
             enviarMensajes($chatId,$tiempoDefinitivo,True);
             break;
         case "/noticias":
-            $response="Que tipo de noticias quieres?";
+            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnología\n /internacional";
             enviarMensajes($chatId,$response,True);
             break;
         default:
@@ -60,13 +60,13 @@ if(empty($reply)){
 
                 $xmlstring = file_get_contents($url, false, $context);
 
-                $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
-                $json = json_encode($xml);
-                $array = json_decode($json, TRUE);
+                // $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
+                // $json = json_encode($xml);
+                // $array = json_decode($json, TRUE);
 
-                for ($i=0; $i < 4; $i++) { 
-                    $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
-                }
+                // for ($i=0; $i < 4; $i++) { 
+                //     $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
+                // }
                 
             }elseif($message=="/deportes"){
 
@@ -75,14 +75,15 @@ if(empty($reply)){
 
                 $xmlstring = file_get_contents($url, false, $context);
 
-                $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
+                
+            }
+            $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
                 $json = json_encode($xml);
                 $array = json_decode($json, TRUE);
 
                 for ($i=0; $i < 4; $i++) { 
                     $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
                 }
-            }
             enviarMensajes($chatId,$titulos,False);
         break;
     }
