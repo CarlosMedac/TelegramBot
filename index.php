@@ -13,7 +13,7 @@ if(empty($reply)){
     switch($message){
         case "hola":
             $response= "Hola humano";
-            enviarMensajes($chatId,$response,True);
+            enviarMensajes($chatId,$response,False);
             break;
         case "/hora":
             $hora = date("H:i:s");
@@ -62,10 +62,18 @@ if(empty($reply)){
             $response="No te he entendido introduce /help para ver los comandos";
             enviarMensajes($chatId,$response,True); 
     }
+}else{
+
 }
 function enviarMensajes($chatId,$response,$respuesta){
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
-    file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
+    $reply_mark = array("force_reply"=>true);
+    if ($respuesta==True){
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".json_encode($reply_mark)."&text=".urlencode($response));
+    }else{
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
+    }
+   
 
 }
 
