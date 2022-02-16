@@ -41,7 +41,7 @@ if(empty($reply)){
             $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
             enviarMensajes($chatId,$tiempoDefinitivo,True);
             break;
-        case "/noticias"
+        case "/noticias":
             include("simple_html_dom.php");
 
             $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
