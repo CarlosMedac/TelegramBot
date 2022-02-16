@@ -21,6 +21,7 @@ if(empty($reply)){
     }
     elseif ($message=="hora") {
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
+            enviarMensajes($chatId,"Son las ".$hora,True);
         }
     elseif ($message=="dia") {
         
