@@ -42,7 +42,7 @@ if(empty($reply)){
             enviarMensajes($chatId,$tiempoDefinitivo,True);
             break;
         case "/noticias":
-            $response="Que tipo de noticias quieres?"
+            $response="Que tipo de noticias quieres?";
             enviarMensajes($chatId,$response,True);
             break;
         default:
