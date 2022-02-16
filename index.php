@@ -7,15 +7,15 @@ $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 $hora = date("H:i:s");
 $dia = date('l jS \of F Y');
-$keyboard=[
-    ['Hola','XD'],
-    ['Cancelar'],
-]
+// $keyboard=[
+//     ['Hola','XD'],
+//     ['Cancelar'],
+// ]
 
 if ($message=="hola") {
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
-        $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
-        $k=json_encode($key);
+        // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
+        // $k=json_encode($key);
     }
 elseif ($message=="hora") {
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
