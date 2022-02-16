@@ -31,19 +31,8 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,False);
             break;
         case "/tiempo":
-            $location = substr($message, 8);
-            $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
-            $tiempo = $weather["provincias"];
-                for($i=0;$i<count($tiempo);$i++){
-                     $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"]; 
-                        if($provincias == $location){
-                            $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
-                            break;
-                        }
-                    }
-            $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
-            $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
-            enviarMensajes($chatId,$tiempoDefinitivo,True);
+            $response="Donde quieres consultar el tiempo?\n";
+            enviarMensajes($chatId,$response,True);
             break;
         case "/noticias":
             $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n\n\n";
@@ -80,6 +69,21 @@ if(empty($reply)){
                     $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
                 }
             enviarMensajes($chatId,$titulos,False);
+        break;
+        case "Donde":
+            $location = $message;
+            $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
+            $tiempo = $weather["provincias"];
+                for($i=0;$i<count($tiempo);$i++){
+                     $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"]; 
+                        if($provincias == $location){
+                            $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
+                            break;
+                        }
+                    }
+            $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
+            $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
+            enviarMensajes($chatId,$tiempoDefinitivo,True);
         break;
         
     }
