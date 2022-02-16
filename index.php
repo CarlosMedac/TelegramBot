@@ -14,7 +14,7 @@ $dia = date('l jS \of F Y');
 // ]
 if(empty($reply)){
     if ($message=="hola") {
-        $mensaje="Hola humano"
+        $mensaje="Hola humano";
         // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
         // $k=json_encode($key);
         enviarMensajes($chatId,$mensaje);
