@@ -59,13 +59,13 @@ if(empty($reply)){
         for ($i=0; $i < 4; $i++) { 
             $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
         }
-        enviarMensajes($chatId,$titulos);
+        enviarMensajes($chatId,$titulos,TRUE);
         
     }
 
 }
 function enviarMensajes($chatId,$mensaje,$Respuesta){
-    file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text= ".urlencode($mensaje));
+    file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=hola ".urlencode($mensaje));
 }
 
 
