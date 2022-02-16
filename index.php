@@ -31,11 +31,11 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,False);
             break;
         case "/tiempo":
-            $response="Donde quieres consultar el tiempo?<br>";
+            $response="Donde quieres consultar el tiempo?</br>";
             enviarMensajes($chatId,$response,True);
             break;
         case "/noticias":
-            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional<br><br>";
+            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional</br>";
             enviarMensajes($chatId,$response,True);
             break;
         default:
