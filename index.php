@@ -13,7 +13,7 @@ $saludo="Hola humano";
 if(empty($reply)){
     switch($message){
         case "hola":
-            enviarMensajes($chatId,$saludo,True);
+            enviarMensajes($chatId,"Son las ".$hora,True);
             break;
         case "hora":
             enviarMensajes($chatId,"Son las ".$hora,True);
