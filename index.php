@@ -7,7 +7,7 @@ $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 
-$dia = date('l jS \of F Y');
+
 
 if(empty($reply)){
     switch($message){
@@ -19,51 +19,51 @@ if(empty($reply)){
             $hora = date("H:i:s");
             enviarMensajes($chatId,"Son las ".$hora,True);
             break;
+        case "/dia":
+            $dia = date('l jS \of F Y');
+            $diassemana = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
+            $response=$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y');
+            enviarMensajes($chatId,$response,True);
+            break;
+        case "/tiempo":
+            $location = substr($message, 8);
+                    $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
+                    $tiempo = $weather["provincias"];
+                    for($i=0;$i<count($tiempo);$i++){
+                        $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"]; 
+                        if($provincias == $location){
+                            $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
+                            break;
+                        }
+                    }
+                    $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
+                    $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
+                    enviarMensajes($chatId,$tiempoDefinitivo,True);
+            break;
+        case "/noticias"
+            include("simple_html_dom.php");
+
+                $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
+                $url = "http://www.europapress.es/rss/rss.aspx";
+
+                $xmlstring = file_get_contents($url, false, $context);
+
+                $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
+                $json = json_encode($xml);
+                $array = json_decode($json, TRUE);
+
+                for ($i=0; $i < 4; $i++) { 
+                    $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
+                }
+                enviarMensajes($chatId,$titulos,True);
+            break;
+        default:
+            $response="No te he entendido introduce /help para ver los comandos";
+            enviarMensajes($chatId,$response,True); 
+            break;
     }
-    // elseif ($message=="hora") {
-    //         enviarMensajes($chatId,"Son las ".$hora,True);
-    //     }
-    // elseif ($message=="dia") {
-        
-    //     $diassemana = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
-    //     $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
-    //     file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Hoy es ".$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') );
 
-    // }
-    // elseif (strpos($message, "/tiempo") === 0) {
-    //         $location = substr($message, 8);
-    //         $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
-    //         $tiempo = $weather["provincias"];
-    //         for($i=0;$i<count($tiempo);$i++){
-    //             $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"]; 
-    //             if($provincias == $location){
-    //                 $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
-    //                 break;
-    //             }
-    //         }
-    //         $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
-    //         $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
-    //         file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=El tiempo en ".$location.": ".urlencode($tiempoDefinitivo));
-    //         }
-
-    // elseif($message=="/noticias"){
-    //     include("simple_html_dom.php");
-
-    //     $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
-    //     $url = "http://www.europapress.es/rss/rss.aspx";
-
-    //     $xmlstring = file_get_contents($url, false, $context);
-
-    //     $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
-    //     $json = json_encode($xml);
-    //     $array = json_decode($json, TRUE);
-
-    //     for ($i=0; $i < 4; $i++) { 
-    //         $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
-    //     }
-    //     enviarMensajes($chatId,$titulos,True);
-        
-    // }
 
 }
 function enviarMensajes($chatId,$response,$respuesta){
