@@ -35,7 +35,7 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,True);
             break;
         case "/noticias":
-            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n \n";
+            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n<a>Hola</a> \n";
             enviarMensajes($chatId,$response,True);
             break;
         default:
