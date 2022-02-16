@@ -97,7 +97,7 @@ if(empty($reply)){
             }elseif((in_array("soleado",$tiempoDefinitivo_a))){
                 $iconoTiempo="";
             }
-            enviarMensajes($chatId,$tiempoDefinitivo,False);
+            enviarMensajes($chatId,$location.":".$iconoTiempo,False);
         break;
         
     }
