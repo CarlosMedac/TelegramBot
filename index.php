@@ -12,10 +12,10 @@ $saludo="Hola humano";
 
 if(empty($reply)){
     if ($message=="hola") {
-        enviarMensajes($chatId,$saludo,True);
-    }
+            enviarMensajes($chatId,$saludo,True);
+        }
     elseif ($message=="hora") {
-            enviarMensajes($chatId,"Son las ".$hora,True);
+            enviarMensajes($chatId,"Son las ",True);
         }
     elseif ($message=="dia") {
         
