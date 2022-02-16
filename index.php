@@ -83,20 +83,20 @@ if(empty($reply)){
                     }
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
-            // $contenidonubes=["nubes","cubierto"];
-            // $tiempoDefinitivo_a=explode(' ',$tiempoDefinitivo);
-            // $iconoTiempo;
-            // if(in_array($contenidonubes,$tiempoDefinitivo_a)){
-            //     $iconoTiempo=;
-            // }elseif((in_array("poco",$tiempoDefinitivo_a))){
-            //     $iconoTiempo=;
-            // }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
-            //     $iconoTiempo=;
-            // }elseif((in_array("despejado",$tiempoDefinitivo_a))){
-            //     $iconoTiempo=;
-            // }elseif((in_array("soleado",$tiempoDefinitivo_a))){
-            //     $iconoTiempo=;
-            // }
+            $contenidonubes=["nubes","cubierto"];
+            $tiempoDefinitivo_a=explode(' ',$tiempoDefinitivo);
+            $iconoTiempo;
+            if(in_array($contenidonubes,$tiempoDefinitivo_a)){
+                $iconoTiempo="";
+            }elseif((in_array("poco",$tiempoDefinitivo_a))){
+                $iconoTiempo="Hola";
+            }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
+                $iconoTiempo="";
+            }elseif((in_array("despejado",$tiempoDefinitivo_a))){
+                $iconoTiempo="";
+            }elseif((in_array("soleado",$tiempoDefinitivo_a))){
+                $iconoTiempo="";
+            }
             enviarMensajes($chatId,$tiempoDefinitivo,False);
         break;
         
