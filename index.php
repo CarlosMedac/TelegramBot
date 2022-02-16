@@ -26,6 +26,10 @@ if(empty($reply)){
             $response=$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y');
             enviarMensajes($chatId,"Hoy es".$response,True);
             break;
+        case "/help":
+            $response= "Los comandos que puedes utilizar son:\n/hora\n/dia\n/hora\n/tiempo\n/noticias";
+            enviarMensajes($chatId,$response,False);
+            break;
         case "/tiempo":
             $location = substr($message, 8);
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
@@ -42,7 +46,7 @@ if(empty($reply)){
             enviarMensajes($chatId,$tiempoDefinitivo,True);
             break;
         case "/noticias":
-            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional";
+            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n\n\n";
             enviarMensajes($chatId,$response,True);
             break;
         default:
