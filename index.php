@@ -11,7 +11,7 @@ $dia = date('l jS \of F Y');
 
 if(empty($reply)){
     switch($message){
-        case "/hola":
+        case "hola":
             $response= "Hola humano.";
             enviarMensajes($chatId,$response,True);
             break;
