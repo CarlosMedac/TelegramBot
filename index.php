@@ -50,10 +50,10 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,True); 
     }
 }else{
-    file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($reply[0]));
-    switch($reply[0]){
+    file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($reply_a[0]));
+    switch($reply_a[0]){
         case "Que":
-            file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($reply[0]));
+            file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($reply_a[0]));
             // if($message=="/actualidad"){
             //     include("simple_html_dom.php");
 
