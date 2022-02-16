@@ -14,9 +14,10 @@ $dia = date('l jS \of F Y');
 // ]
 if(empty($reply)){
     if ($message=="hola") {
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=hola");
+        $mensaje="Hola humano"
         // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
         // $k=json_encode($key);
+        enviarMensajes($chatId,$mensaje);
     }
     elseif ($message=="hora") {
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
@@ -65,6 +66,7 @@ if(empty($reply)){
 
 }
 function enviarMensajes($Id,$mensaje,$Respuesta){
+    $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
     file_get_contents($path."/sendmessage?chat_id=".$Id."&parse_mode=HTML&text= ".urlencode($mensaje));
 
 }
