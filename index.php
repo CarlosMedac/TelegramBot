@@ -17,7 +17,7 @@ if(empty($reply)){
             break;
         case "/hora":
             $hora = date("H:i:s");
-            enviarMensajes($chatId,"Son las ".$hora,True);
+            enviarMensajes($chatId,"Son las ".$hora,False);
             break;
         case "/dia":
             $dia = date('l jS \of F Y');
@@ -35,12 +35,12 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,True);
             break;
         case "/noticias":
-            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n\n\n";
+            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n" "\n" "\n";
             enviarMensajes($chatId,$response,True);
             break;
         default:
             $response="No te he entendido introduce /help para ver los comandos";
-            enviarMensajes($chatId,$response,True); 
+            enviarMensajes($chatId,$response,False); 
     }
 }else{
     switch($reply_a[0]){
@@ -83,7 +83,7 @@ if(empty($reply)){
                     }
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $tiempoDefinitivo = $tiempoProvincia["today"]["p"];
-            enviarMensajes($chatId,$tiempoDefinitivo,True);
+            enviarMensajes($chatId,$tiempoDefinitivo,False);
         break;
         
     }
