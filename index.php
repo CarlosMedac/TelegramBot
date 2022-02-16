@@ -67,7 +67,7 @@ if(empty($reply)){
 }
 function enviarMensajes($Id,$mensaje,$Respuesta){
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
-    file_get_contents($path."/sendmessage?chat_id=".$Id."&parse_mode=HTML&text= ".$mensaje);
+    file_get_contents($path."/sendmessage?chat_id=".$Id."&parse_mode=HTML&text= ".urlencode($mensaje));
 
 }
 
