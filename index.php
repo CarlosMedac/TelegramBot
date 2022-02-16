@@ -42,7 +42,7 @@ if(empty($reply)){
             enviarMensajes($chatId,$tiempoDefinitivo,True);
             break;
         case "/noticias":
-            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnología\n /internacional";
+            $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional";
             enviarMensajes($chatId,$response,True);
             break;
         default:
@@ -53,31 +53,18 @@ if(empty($reply)){
     switch($reply_a[0]){
         case "Que":
             include("simple_html_dom.php");
+            $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
             if($message=="/actualidad"){
-                
-                $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
                 $url = "http://www.europapress.es/rss/rss.aspx";
-
-                $xmlstring = file_get_contents($url, false, $context);
-
-                // $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
-                // $json = json_encode($xml);
-                // $array = json_decode($json, TRUE);
-
-                // for ($i=0; $i < 4; $i++) { 
-                //     $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
-                // }
-                
             }elseif($message=="/deportes"){
-
-                $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
                 $url = "https://www.europapress.es/rss/rss.aspx?ch=00067";
-
-                $xmlstring = file_get_contents($url, false, $context);
-
-                
+            }elseif($message=="/tecnologia"){
+                $url = "https://www.europapress.es/rss/rss.aspx?ch=00564";
+            }elseif($message=="/internacional"){
+                $url = "https://www.europapress.es/rss/rss.aspx?ch=00069";
             }
-            $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
+                $xmlstring = file_get_contents($url, false, $context);
+                $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
                 $json = json_encode($xml);
                 $array = json_decode($json, TRUE);
 
