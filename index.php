@@ -89,7 +89,7 @@ if(empty($reply)){
             if(in_array($contenidonubes,$tiempoDefinitivo_a)){
                 $iconoTiempo="";
             }elseif((in_array("Poco",$tiempoDefinitivo_a))){
-                $iconoTiempo="Hola";
+                $iconoTiempo=🦋;
             }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
                 $iconoTiempo="";
             }elseif((in_array("despejado",$tiempoDefinitivo_a))){
