@@ -7,7 +7,7 @@ $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 
-
+$reply_a=explode(' ',$reply);
 
 if(empty($reply)){
     switch($message){
@@ -42,28 +42,35 @@ if(empty($reply)){
             enviarMensajes($chatId,$tiempoDefinitivo,True);
             break;
         case "/noticias":
-            include("simple_html_dom.php");
-
-            $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
-            $url = "http://www.europapress.es/rss/rss.aspx";
-
-            $xmlstring = file_get_contents($url, false, $context);
-
-            $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
-            $json = json_encode($xml);
-            $array = json_decode($json, TRUE);
-
-                for ($i=0; $i < 4; $i++) { 
-                    $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
-                }
-            enviarMensajes($chatId,$titulos,True);
+            $response="Que tipo de noticias quieres?"
+            enviarMensajes($chatId,$response,True);
             break;
         default:
             $response="No te he entendido introduce /help para ver los comandos";
             enviarMensajes($chatId,$response,True); 
     }
 }else{
+    switch($reply[0]){
+        case "Que":
+            if($message=="/actualidad"){
+                include("simple_html_dom.php");
 
+                $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
+                $url = "http://www.europapress.es/rss/rss.aspx";
+
+                $xmlstring = file_get_contents($url, false, $context);
+
+                $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
+                $json = json_encode($xml);
+                $array = json_decode($json, TRUE);
+
+                for ($i=0; $i < 4; $i++) { 
+                    $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
+                }
+                enviarMensajes($chatId,$titulos,False);
+            }
+        break;
+    }
 }
 function enviarMensajes($chatId,$response,$respuesta){
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
