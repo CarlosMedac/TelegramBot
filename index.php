@@ -6,16 +6,17 @@ $update = json_decode(file_get_contents("php://input"), TRUE);
 $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
-$hora = date("H:i:s");
+
 $dia = date('l jS \of F Y');
-$saludo="Hola humano";
 
 if(empty($reply)){
     switch($message){
-        case "hola":
-            enviarMensajes($chatId,"Son las ".$hora,True);
+        case "/hola":
+            $response= "Hola humano.";
+            enviarMensajes($chatId,$response,True);
             break;
-        case "hora":
+        case "/hora":
+            $hora = date("H:i:s");
             enviarMensajes($chatId,"Son las ".$hora,True);
             break;
     }
@@ -65,9 +66,9 @@ if(empty($reply)){
     // }
 
 }
-function enviarMensajes($Id,$mensaje,$Respuesta){
+function enviarMensajes($chatId,$response,$respuesta){
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
-    file_get_contents($path."/sendmessage?chat_id=".$Id."&parse_mode=HTML&text= ".urlencode($mensaje));
+    file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
 
 }
 
