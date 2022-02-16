@@ -85,7 +85,7 @@ if(empty($reply)){
             $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
             $contenidonubes=["nubes","cubierto"];
             $tiempoDefinitivo_a=explode(' ',$tiempoDefinitivo);
-            $iconoTiempo;
+            $iconoTiempo="";
             if(in_array($contenidonubes,$tiempoDefinitivo_a)){
                 $iconoTiempo="";
             }elseif((in_array("poco",$tiempoDefinitivo_a))){
@@ -97,6 +97,7 @@ if(empty($reply)){
             }elseif((in_array("soleado",$tiempoDefinitivo_a))){
                 $iconoTiempo="";
             }
+            file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
             enviarMensajes($chatId,$location.":".$iconoTiempo,False);
         break;
         
