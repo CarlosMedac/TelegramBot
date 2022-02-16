@@ -67,8 +67,9 @@ if(empty($reply)){
                 for ($i=0; $i < 4; $i++) { 
                     $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
                 }
-                enviarMensajes($chatId,$titulos,False);
+                
             }elseif($message=="/deportes"){
+
                 $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
                 $url = "https://www.europapress.es/rss/rss.aspx?ch=00067";
 
@@ -82,6 +83,7 @@ if(empty($reply)){
                     $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
                 }
             }
+            enviarMensajes($chatId,$titulos,False);
         break;
     }
 }
