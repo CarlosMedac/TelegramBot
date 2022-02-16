@@ -82,7 +82,7 @@ if(empty($reply)){
                         }
                     }
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
-            $tiempoDefinitivo = $tiempoProvincia["ciudades"]["stateSky"]["description"];
+            $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
             // $contenidonubes=["nubes","cubierto"];
             // $tiempoDefinitivo_a=explode(' ',$tiempoDefinitivo);
             // $iconoTiempo;
