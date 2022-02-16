@@ -14,13 +14,12 @@ $dia = date('l jS \of F Y');
 // ]
 if(empty($reply)){
     if ($message=="hola") {
-        $saludo="Holahumano";
+        $saludo="Hola humano";
         // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
         // $k=json_encode($key);
-        enviarMensajes($chatId,$saludo,True);
+        enviarMensajes($chatId,"".$saludo,True);
     }
     elseif ($message=="hora") {
-            file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
             enviarMensajes($chatId,"Son las ".$hora,True);
         }
     elseif ($message=="dia") {
