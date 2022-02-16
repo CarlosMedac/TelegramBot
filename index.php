@@ -8,7 +8,7 @@ $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 $hora = date("H:i:s");
 $dia = date('l jS \of F Y');
-$saludo="Hola humano";
+$saludo=["Hola humano"];
 
 if(empty($reply)){
     switch($message){
