@@ -62,6 +62,10 @@ if(empty($reply)){
                 $url = "https://www.europapress.es/rss/rss.aspx?ch=00564";
             }elseif($message=="/internacional"){
                 $url = "https://www.europapress.es/rss/rss.aspx?ch=00069";
+            }else{
+                $response="No es una categoria valida";
+                enviarMensajes($chatId,$response,False);
+                break;
             }
                 $xmlstring = file_get_contents($url, false, $context);
                 $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -73,6 +77,7 @@ if(empty($reply)){
                 }
             enviarMensajes($chatId,$titulos,False);
         break;
+        
     }
 }
 function enviarMensajes($chatId,$response,$respuesta){
