@@ -8,16 +8,11 @@ $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 $hora = date("H:i:s");
 $dia = date('l jS \of F Y');
-// $keyboard=[
-//     ['Hola','XD'],
-//     ['Cancelar'],
-// ]
+$saludo="Hola humano";
+
 if(empty($reply)){
     if ($message=="hola") {
-        $saludo="Hola humano";
-        // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
-        // $k=json_encode($key);
-        enviarMensajes($chatId,"".$saludo,True);
+        enviarMensajes($chatId,$saludo,True);
     }
     elseif ($message=="hora") {
             enviarMensajes($chatId,"Son las ".$hora,True);
