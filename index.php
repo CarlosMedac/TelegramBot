@@ -17,7 +17,7 @@ if(empty($reply)){
         $mensaje="Hola humano";
         // $key = array('one_time_keyboard' => true,'resize_keyboard' =>true,'keyboard'=>$keyboard);
         // $k=json_encode($key);
-        enviarMensajes($chatId,$mensaje);
+        enviarMensajes($chatId,$mensaje,False);
     }
     elseif ($message=="hora") {
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&text=Son las ".$hora);
