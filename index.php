@@ -11,7 +11,7 @@ $reply_a=explode(' ',$reply);
 $keyboard=[
     ["Tiempo\u{2602}","Temperatura\u{1F321}"],
 ];
-$key = array('one_time_keyboard' => false,'resize_keyboard' => true,'keyboard'=>$keyboard);
+$key = array('one_time_keyboard' => false,'resize_keyboard' => true,'input_field_placeholder'=>true,'keyboard'=>$keyboard);
 $k=json_encode($key);
 
 if(empty($reply)){
@@ -32,7 +32,7 @@ if(empty($reply)){
             enviarMensajes($chatId,"Hoy es".$response,False);
             break;
         case "/help":
-            $response= "Los comandos que puedes utilizar son:\n/hora\n/dia\n/hora\n/tiempo\n/noticias";
+            $response= "Los comandos que puedes utilizar son:\n/hora\n/dia\n/tiempo\n/noticias";
             enviarMensajes($chatId,$response,False);
             break;
         case "/tiempo":
