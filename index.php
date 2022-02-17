@@ -81,6 +81,7 @@ if(empty($reply)){
                             break;
                         }
                     }
+            $cloud="\xE2\x98\x81";
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
             $contenidonubes=["nubes","cubierto"];
@@ -95,9 +96,11 @@ if(empty($reply)){
             }elseif((in_array("Despejado",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#128262";
             }elseif((in_array("Nuboso",$tiempoDefinitivo_a))){
+                $iconoTiempo="\xE2\x98\x81";
+            }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#128173";
             }else{
-                $iconoTiempo="	&#128123";
+                $iconoTiempo="&#128123";
             }
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
             enviarMensajes($chatId,$location.": ".$iconoTiempo,False);
