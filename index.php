@@ -107,7 +107,7 @@ if(empty($reply)){
                 $iconoTiempo="&#9748";
             }elseif((in_array("Despejado",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#128262";
-            }elseif((in_array(("Nuboso","nuboso"),$tiempoDefinitivo_a))){
+            }elseif((in_array(array("Nuboso","nuboso"),$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
             }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#9748";
