@@ -88,9 +88,10 @@ if(empty($reply)){
                         $provincias="Castellón";
                      }elseif($provincias=="València/Valencia"){
                         $provincias="Valencia";
-                     }elseif($provincias=="Grana"){
-                        $provincias="Granada";
-                     }             
+                     }
+                     if($location=="Grana"){
+                         $location=="Granada";
+                     } 
                         if($provincias == $location){
                             $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
                             break;
