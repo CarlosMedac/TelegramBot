@@ -36,7 +36,7 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,False);
             break;
         case "/tiempo":
-            &$k='';
+            $k='';
             $response="Selecciona la opcion que quieras";
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".$k."&text=".urlencode($response));
             break;
