@@ -112,6 +112,7 @@ if(empty($reply)){
                             break;
                         }
                     }
+            if($codigoProvincia==""){
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
             $tiempoenMinuscula=strtolower($tiempoDefinitivo);
@@ -139,6 +140,11 @@ if(empty($reply)){
                 $iconoTiempo="";
             }
             enviarMensajes($chatId,$location.": ".$tiempoDefinitivo." ".$iconoTiempo,False);
+            }else{
+                $response="No has introducido correctamente el lugar";
+                enviarMensajes($chatId,$response,False);
+            }
+            
         break;
         case "Donde":
             $location = $message;
