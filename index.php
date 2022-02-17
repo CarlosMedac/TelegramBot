@@ -112,7 +112,7 @@ if(empty($reply)){
                             break;
                         }
                     }
-            if($codigoProvincia==""){
+            if($codigoProvincia!=""){
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
             $tiempoenMinuscula=strtolower($tiempoDefinitivo);
