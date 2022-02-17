@@ -180,12 +180,12 @@ if(empty($reply)){
             }else{
                 $iconoTemperatura="";
             }
-            enviarMensajes($chatId,"Temperatura en ".$location.": Max=".$temperaturaMax." ".$iconoTemperatura." Min=".$temperaturaMin." ".$iconoTemperatura,False);
+            enviarMensajes($chatId,"Temperatura en ".$location.": Max=".$temperaturaMax." ".$iconoTemperatura." Min=".$temperaturaMin,False);
         break;
         
     }
 }
-function enviarMensajes($chatId,$response,$respuesta,&$k = ''){
+function enviarMensajes($chatId,$response,$respuesta,$k){
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
     $reply_mark = array("force_reply"=>true);
     if(isset($k)){
