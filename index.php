@@ -88,11 +88,9 @@ if(empty($reply)){
                         $provincias="Castellón";
                      }elseif($provincias=="València/Valencia"){
                         $provincias="Valencia";
-                     }elseif($provincias=="València/Valencia"){
-                        $provincias="Valencia";
-                     }                  
+                     }       
                         if($provincias == $location){
-                            $codigoProvincia = $weather["codprov"][$i]["CODPROV"];
+                            $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
                             break;
                         }
                     }
