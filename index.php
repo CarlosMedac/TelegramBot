@@ -8,9 +8,11 @@ $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 $reply_a=explode(' ',$reply);
 
-// $keyboard=[
-//     [""]
-// ]
+$keyboard=[
+    ["\u{1F321}","\u{2602}"]
+]
+$key = array('one_time_keyboard' => true,'resize_keyboard' => true,'keyboard'=>$keyboard);
+$k=json_encode($key);
 
 if(empty($reply)){
     switch($message){
@@ -35,7 +37,7 @@ if(empty($reply)){
             break;
         case "/tiempo":
             $response="Donde quieres consultar el tiempo?";
-            enviarMensajes($chatId,$response,True);
+            enviarMensajes($chatId,$response,False,$k);
             break;
         case "/noticias":
             $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n";
@@ -102,28 +104,29 @@ if(empty($reply)){
                             break;
                         }
                     }
-            $cloud="\xE2\x98\x81";
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
             $tiempoenMinuscula=strtolower($tiempoDefinitivo);
             $tiempoDefinitivo_a=explode(' ',$tiempoenMinuscula);
             $iconoTiempo="";
             if(in_array("tormentoso",$tiempoDefinitivo_a)){
-                $iconoTiempo="&#9889";
+                $iconoTiempo="\u{1F329}";
             }elseif((in_array("poco",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#9925";
+                $iconoTiempo="\u{1F324}";
             }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#9748";
+                $iconoTiempo="\u{1F327}";
             }elseif((in_array("viento",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#128168";
+                $iconoTiempo="\u{1F32B}";
             }elseif((in_array("despejado",$tiempoDefinitivo_a))){
-                $iconoTiempo="\u{1F321}";
+                $iconoTiempo="\u{2600}";
             }elseif((in_array("nuboso",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
             }elseif((in_array("cubierto",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
             }elseif((in_array("nubes",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
+            }elseif((in_array("nieve",$tiempoDefinitivo_a))){
+                $iconoTiempo="\u{1F328}";
             }else{
                 $iconoTiempo="";
             }
@@ -132,14 +135,19 @@ if(empty($reply)){
         
     }
 }
-function enviarMensajes($chatId,$response,$respuesta){
+function enviarMensajes($chatId,$response,$respuesta,&$k = ''){
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
     $reply_mark = array("force_reply"=>true);
-    if ($respuesta==True){
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".json_encode($reply_mark)."&text=".urlencode($response));
+    if(isset($k)){
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".$k."&text=".urlencode($response));
     }else{
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
+        if ($respuesta==True){
+            file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".json_encode($reply_mark)."&text=".urlencode($response));
+        }else{
+            file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
+        }
     }
+    
    
 
 }
