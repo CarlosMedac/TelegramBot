@@ -175,7 +175,7 @@ if(empty($reply)){
             $iconoTemperatura="";
             if(intval($temperaturaMax)<15){
                 $iconoTemperatura="\u{2744}";
-            }elseif(intval($temperaturaMax)=>15){
+            }elseif(intval($temperaturaMax)>=15){
                 $iconoTemperatura="\u{1F525}";
             }else{
                 $iconoTemperatura="";
