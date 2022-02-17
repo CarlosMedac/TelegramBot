@@ -10,7 +10,7 @@ $reply_a=explode(' ',$reply);
 
 $keyboard=[
     ["\u{1F321}","\u{2602}"]
-]
+];
 $key = array('one_time_keyboard' => true,'resize_keyboard' => true,'keyboard'=>$keyboard);
 $k=json_encode($key);
 
