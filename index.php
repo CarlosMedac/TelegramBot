@@ -88,7 +88,9 @@ if(empty($reply)){
                         $provincias="Castellón";
                      }elseif($provincias=="València/Valencia"){
                         $provincias="Valencia";
-                     }       
+                     }elseif($provincias=="Grana"){
+                        $provincias="Granada";
+                     }             
                         if($provincias == $location){
                             $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
                             break;
@@ -106,6 +108,8 @@ if(empty($reply)){
                 $iconoTiempo="&#9925";
             }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#9748";
+            }elseif((in_array("viento",$tiempoDefinitivo_a))){
+                $iconoTiempo="&#128168";
             }elseif((in_array("despejado",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#128262";
             }elseif((in_array("nuboso",$tiempoDefinitivo_a))){
@@ -115,11 +119,10 @@ if(empty($reply)){
             }elseif((in_array("nubes",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
             }
+            
             else{
-                file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoenMinuscula));
-                $iconoTiempo="&#128123";
+                $iconoTiempo="";
             }
-            file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
             enviarMensajes($chatId,$location.": ".$tiempoDefinitivo." ".$iconoTiempo,False);
         break;
         
