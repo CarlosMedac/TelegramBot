@@ -193,12 +193,11 @@ function enviarMensajes($chatId,$response,$respuesta){
     }else{
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
     }
-
-    
 }
 function enviarMensajesTeclado($chatId,$response,&$k = ''){
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
     if(isset($k)){
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".$k."&text=".urlencode($response));
     }
+}
 ?>
