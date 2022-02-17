@@ -74,6 +74,9 @@ if(empty($reply)){
             $location = $message;
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
             $tiempo = $weather["provincias"];
+            if($location=="Grana"){
+                $location=="Granada";
+            } 
                 for($i=0;$i<count($tiempo);$i++){
                      $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"];
                      if($provincias=="Araba/Álava"){
@@ -89,9 +92,6 @@ if(empty($reply)){
                      }elseif($provincias=="València/Valencia"){
                         $provincias="Valencia";
                      }
-                     if($location=="Grana"){
-                         $location=="Granada";
-                     } 
                         if($provincias == $location){
                             $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
                             break;
