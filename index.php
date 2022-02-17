@@ -100,6 +100,7 @@ if(empty($reply)){
             }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#9748";
             }else{
+                file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
                 $iconoTiempo="&#128123";
             }
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
