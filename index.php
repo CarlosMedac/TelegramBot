@@ -180,7 +180,7 @@ if(empty($reply)){
             }else{
                 $iconoTemperatura="";
             }
-            enviarMensajes($chatId,"Temperatura en ".$location.": Max=".$temperaturaMax." ".$iconoTemperatura." Min=".$temperaturaMin,False);
+            enviarMensajes($chatId,"Temperatura en ".$location.":".$iconoTemperatura." Max=".$temperaturaMax." Min=".$temperaturaMin,False);
         break;
         
     }
