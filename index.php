@@ -89,16 +89,18 @@ if(empty($reply)){
             if(in_array($contenidonubes,$tiempoDefinitivo_a)){
                 $iconoTiempo="&#9748";
             }elseif((in_array("Poco",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#9748";
-            }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
+                $iconoTiempo="&#9925";
+            }elseif((in_array("Lluvia",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#9748";
             }elseif((in_array("Despejado",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#9748";
+                $iconoTiempo="&#127774";
             }elseif((in_array("soleado",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#9748";
+            }else{
+                $iconoTiempo="	&#128123";
             }
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
-            enviarMensajes($chatId,$location.":".$iconoTiempo,False);
+            enviarMensajes($chatId,$location.": ".$iconoTiempo,False);
         break;
         
     }
