@@ -8,9 +8,9 @@ $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 $reply_a=explode(' ',$reply);
 
-$keyboard=[
-    [""]
-]
+// $keyboard=[
+//     [""]
+// ]
 
 if(empty($reply)){
     switch($message){
