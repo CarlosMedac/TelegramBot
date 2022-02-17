@@ -11,7 +11,7 @@ $reply_a=explode(' ',$reply);
 $keyboard=[
     ["Tiempo\u{2602}","Temperatura\u{1F321}"],
 ];
-$key = array('one_time_keyboard' => true,'resize_keyboard' => true,'keyboard'=>$keyboard);
+$key = array('one_time_keyboard' => false,'resize_keyboard' => true,'keyboard'=>$keyboard);
 $k=json_encode($key);
 
 if(empty($reply)){
