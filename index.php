@@ -97,27 +97,26 @@ if(empty($reply)){
             $cloud="\xE2\x98\x81";
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
-            $tiempoDefinitivo_a=explode(' ',$tiempoDefinitivo);
+            $tiempoenMinuscula=strtolower($tiempoDefinitivo);
+            $tiempoDefinitivo_a=explode(' ',$tiempoenMinuscula);
             $iconoTiempo="";
-            if(in_array("Tormentoso",$tiempoDefinitivo_a)){
+            if(in_array("tormentoso",$tiempoDefinitivo_a)){
                 $iconoTiempo="&#9889";
-            }elseif((in_array("Poco",$tiempoDefinitivo_a))){
+            }elseif((in_array("poco",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#9925";
-            }elseif((in_array("Lluvia",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#9748";
-            }elseif((in_array("Despejado",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#128262";
-            }elseif((in_array(array("Nuboso","nuboso"),$tiempoDefinitivo_a))){
-                $iconoTiempo="\xE2\x98\x81";
             }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#9748";
-            }elseif((in_array("Cubierto",$tiempoDefinitivo_a))){
+            }elseif((in_array("despejado",$tiempoDefinitivo_a))){
+                $iconoTiempo="&#128262";
+            }elseif((in_array("nuboso",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
-            }elseif((in_array("Nubes",$tiempoDefinitivo_a))){
+            }elseif((in_array("cubierto",$tiempoDefinitivo_a))){
+                $iconoTiempo="\xE2\x98\x81";
+            }elseif((in_array("nubes",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
             }
             else{
-                file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
+                file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoenMinuscula));
                 $iconoTiempo="&#128123";
             }
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
