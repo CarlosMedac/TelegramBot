@@ -9,7 +9,7 @@ $reply = $update["message"]["reply_to_message"]["text"];
 $reply_a=explode(' ',$reply);
 
 $keyboard=[
-    ["\u{1F321}Tiempo","\u{2602}Temperatura"],
+    ["Tiempo\u{2602}","Temperatura\u{1F321}"],
 ];
 $key = array('one_time_keyboard' => true,'resize_keyboard' => true,'keyboard'=>$keyboard);
 $k=json_encode($key);
@@ -36,6 +36,7 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,False);
             break;
         case "/tiempo":
+            &$k='';
             $response="Selecciona la opcion que quieras";
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".$k."&text=".urlencode($response));
             break;
@@ -188,7 +189,6 @@ if(empty($reply)){
 function enviarMensajes($chatId,$response,$respuesta){
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
     $reply_mark = array("force_reply"=>true);
-
         if ($respuesta==True){
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".json_encode($reply_mark)."&text=".urlencode($response));
         }else{
