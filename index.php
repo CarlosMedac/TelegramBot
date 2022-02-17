@@ -9,7 +9,7 @@ $reply = $update["message"]["reply_to_message"]["text"];
 $reply_a=explode(' ',$reply);
 
 $keyboard=[
-    ["\u{1F321}","\u{2602}"],
+    ["\u{1F321}Tiempo","\u{2602}Temperatura"],
 ];
 $key = array('one_time_keyboard' => true,'resize_keyboard' => true,'keyboard'=>$keyboard);
 $k=json_encode($key);
@@ -36,11 +36,19 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,False);
             break;
         case "/tiempo":
-            $response="Donde quieres consultar el tiempo?";
+            $response="Selecciona la opcion que quieras";
             enviarMensajes($chatId,$response,False,$k);
             break;
         case "/noticias":
             $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n";
+            enviarMensajes($chatId,$response,True);
+            break;
+        case "\u{1F321}Tiempo":
+            $response="Introduce la localidad que quieras consultar?";
+            enviarMensajes($chatId,$response,True);
+            break;
+        case "\u{2602}Temperatura":
+            $response="Donde quieres consultar la temperatura?";
             enviarMensajes($chatId,$response,True);
             break;
         default:
@@ -75,7 +83,7 @@ if(empty($reply)){
                 }
             enviarMensajes($chatId,$titulos,False);
         break;
-        case "Donde":
+        case "Introduce":
             $location = $message;
             $location=strtolower($location);
             $location = ucfirst($location);
@@ -131,6 +139,48 @@ if(empty($reply)){
                 $iconoTiempo="";
             }
             enviarMensajes($chatId,$location.": ".$tiempoDefinitivo." ".$iconoTiempo,False);
+        break;
+        case "Donde":
+            $location = $message;
+            $location=strtolower($location);
+            $location = ucfirst($location);
+            $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
+            $tiempo = $weather["provincias"];
+                if($location=="Grana"){
+                    $location="Granada";
+                } 
+                for($i=0;$i<count($tiempo);$i++){
+                     $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"];
+                     if($provincias=="Araba/Álava"){
+                         $provincias="Álava";
+                     }elseif($provincias=="Alacant/Alicante"){
+                         $provincias="Alicante";
+                     }elseif($provincias=="Illes Balears"){
+                        $provincias="Islas Baleares";
+                     }elseif($provincias=="Illes Balears"){
+                        $provincias="Baleares";
+                     }elseif($provincias=="Castelló/Castellón"){
+                        $provincias="Castellón";
+                     }elseif($provincias=="València/Valencia"){
+                        $provincias="Valencia";
+                     }
+                        if($provincias == $location){
+                            $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
+                            break;
+                        }
+                    }
+            $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
+            $temperaturaMax = $tiempoProvincia["ciudades"][0]["temperatures"]["max"];
+            $temperaturaMin = $tiempoProvincia["ciudades"][0]["temperatures"]["min"];
+            $iconoTemperatura="";
+            if(intval($temperaturaMax)<15){
+                $iconoTemperatura="\u{2744}";
+            }elseif(intval($temperaturaMax)=>15){
+                $iconoTemperatura="\u{1F525}";
+            }else{
+                $iconoTemperatura="";
+            }
+            enviarMensajes($chatId,"Temperatura en ".$location.": Max=".$temperaturaMax.$iconoTemperatura." Min=".$temperaturaMin.$iconoTemperatura,False);
         break;
         
     }
