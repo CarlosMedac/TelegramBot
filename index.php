@@ -6,8 +6,11 @@ $update = json_decode(file_get_contents("php://input"), TRUE);
 $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
-
 $reply_a=explode(' ',$reply);
+
+$keyboard=[
+    [""]
+]
 
 if(empty($reply)){
     switch($message){
@@ -76,9 +79,9 @@ if(empty($reply)){
             $location = ucfirst($location);
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
             $tiempo = $weather["provincias"];
-            if($location=="Grana"){
-                $location="Granada";
-            } 
+                if($location=="Grana"){
+                    $location="Granada";
+                } 
                 for($i=0;$i<count($tiempo);$i++){
                      $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"];
                      if($provincias=="Araba/Álava"){
@@ -114,16 +117,14 @@ if(empty($reply)){
             }elseif((in_array("viento",$tiempoDefinitivo_a))){
                 $iconoTiempo="&#128168";
             }elseif((in_array("despejado",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#128262";
+                $iconoTiempo="<span class='emoji'>🌡️</span>";
             }elseif((in_array("nuboso",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
             }elseif((in_array("cubierto",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
             }elseif((in_array("nubes",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
-            }
-            
-            else{
+            }else{
                 $iconoTiempo="";
             }
             enviarMensajes($chatId,$location.": ".$tiempoDefinitivo." ".$iconoTiempo,False);
