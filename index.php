@@ -75,9 +75,24 @@ if(empty($reply)){
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
             $tiempo = $weather["provincias"];
                 for($i=0;$i<count($tiempo);$i++){
-                     $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"]; 
+                     $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"];
+                     if($provincias=="Araba/Álava"){
+                         $provincias="Álava";
+                     }elseif($provincias=="Alacant/Alicante"){
+                         $provincias="Alicante";
+                     }elseif($provincias=="Illes Balears"){
+                        $provincias="Islas Baleares";
+                     }elseif($provincias=="Illes Balears"){
+                        $provincias="Baleares";
+                     }elseif($provincias=="Castelló/Castellón"){
+                        $provincias="Castellón";
+                     }elseif($provincias=="València/Valencia"){
+                        $provincias="Valencia";
+                     }elseif($provincias=="València/Valencia"){
+                        $provincias="Valencia";
+                     }                  
                         if($provincias == $location){
-                            $codigoProvincia = $weather["codprov"];
+                            $codigoProvincia = $weather["codprov"][$i]["CODPROV"];
                             break;
                         }
                     }
