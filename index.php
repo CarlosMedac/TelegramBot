@@ -29,7 +29,7 @@ if(empty($reply)){
             $diassemana = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
             $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
             $response=$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y');
-            enviarMensajes($chatId,"Hoy es".$response,True);
+            enviarMensajes($chatId,"Hoy es".$response,False);
             break;
         case "/help":
             $response= "Los comandos que puedes utilizar son:\n/hora\n/dia\n/hora\n/tiempo\n/noticias";
@@ -175,6 +175,7 @@ if(empty($reply)){
                             break;
                         }
                     }
+            if($codigoProvincia!=""){
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $temperaturaMax = $tiempoProvincia["ciudades"][0]["temperatures"]["max"];
             $temperaturaMin = $tiempoProvincia["ciudades"][0]["temperatures"]["min"];
@@ -187,6 +188,10 @@ if(empty($reply)){
                 $iconoTemperatura="";
             }
             enviarMensajes($chatId,"Temperatura en ".$location.":".$iconoTemperatura." Max=".$temperaturaMax." Min=".$temperaturaMin,False);
+            }else{
+                $response="No has introducido correctamente el lugar";
+                enviarMensajes($chatId,$response,False);
+            }
         break;
         
     }
