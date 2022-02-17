@@ -98,12 +98,12 @@ if(empty($reply)){
             }elseif((in_array("Nuboso",$tiempoDefinitivo_a))){
                 $iconoTiempo="\xE2\x98\x81";
             }elseif((in_array("lluvia",$tiempoDefinitivo_a))){
-                $iconoTiempo="&#128173";
+                $iconoTiempo="&#9748";
             }else{
                 $iconoTiempo="&#128123";
             }
             file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($tiempoDefinitivo));
-            enviarMensajes($chatId,$location.": ".$iconoTiempo,False);
+            enviarMensajes($chatId,$location.": ".$tiempoDefinitivo." ".$iconoTiempo,False);
         break;
         
     }
