@@ -190,11 +190,11 @@ function enviarMensajes($chatId,$response,$respuesta,&$k = ''){
     $reply_mark = array("force_reply"=>true);
     if ($respuesta==True){
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".json_encode($reply_mark)."&text=".urlencode($response));
+    }else{
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
     }
     if(isset($k)){
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".$k."&text=".urlencode($response));
-    }else{
-        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
     }
     
     
