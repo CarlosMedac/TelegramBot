@@ -72,10 +72,12 @@ if(empty($reply)){
         break;
         case "Donde":
             $location = $message;
+            $location=strtolower($location);
+            $location = ucfirst($location);
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
             $tiempo = $weather["provincias"];
             if($location=="Grana"){
-                $location=="Granada";
+                $location="Granada";
             } 
                 for($i=0;$i<count($tiempo);$i++){
                      $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"];
