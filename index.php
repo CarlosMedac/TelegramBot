@@ -77,7 +77,7 @@ if(empty($reply)){
                 for($i=0;$i<count($tiempo);$i++){
                      $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"]; 
                         if($provincias == $location){
-                            $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
+                            $codigoProvincia = $weather["codprov"];
                             break;
                         }
                     }
