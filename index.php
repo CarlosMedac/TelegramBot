@@ -37,17 +37,17 @@ if(empty($reply)){
             break;
         case "/tiempo":
             $response="Selecciona la opcion que quieras";
-            enviarMensajes($chatId,$response,False,$k);
+            enviarMensajesTeclado($chatId,$response,$k);
             break;
         case "/noticias":
             $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n";
             enviarMensajes($chatId,$response,True);
             break;
-        case "\u{1F321}Tiempo":
+        case "Tiempo\u{2602}":
             $response="Introduce la localidad que quieras consultar?";
             enviarMensajes($chatId,$response,True);
             break;
-        case "\u{2602}Temperatura":
+        case "Temperatura\u{1F321}":
             $response="Donde quieres consultar la temperatura?";
             enviarMensajes($chatId,$response,True);
             break;
@@ -197,13 +197,10 @@ function enviarMensajes($chatId,$response,$respuesta,&$k = ''){
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".$k."&text=".urlencode($response));
     }
     
-    
-    
-   
-
 }
-
-
-
-
+function enviarMensajesTeclado($chatId,$response,&$k = ''){
+    $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
+    if(isset($k)){
+        file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".$k."&text=".urlencode($response));
+    }
 ?>
