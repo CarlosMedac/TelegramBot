@@ -36,54 +36,19 @@ if(empty($reply)){
             enviarMensajes($chatId,$response,False);
             break;
         case "/tiempo":
-            $response="Selecciona la opcion que quieras";
-            enviarMensajesTeclado($chatId,$response,$k);
+            $response="Introduce la Localidad que quieras";
+            enviarMensajes($chatId,$response,True);
+            // $response="Selecciona la opcion que quieras";
+            // enviarMensajesTeclado($chatId,$response,$k);
             break;
         case "/noticias":
             $response="Que tipo de noticias quieres?\n /actualidad\n /deportes\n /tecnologia\n /internacional\n";
             enviarMensajes($chatId,$response,True);
             break;
         case "Tiempo\u{2602}":
-            $response="Introduce la localidad que quieras consultar?";
-            enviarMensajes($chatId,$response,True);
-            break;
-        case "Temperatura\u{1F321}":
-            $response="Donde quieres consultar la temperatura?";
-            enviarMensajes($chatId,$response,True);
-            break;
-        default:
-            $response="No te he entendido introduce /help para ver los comandos";
-            enviarMensajes($chatId,$response,False); 
-    }
-}else{
-    switch($reply_a[0]){
-        case "Que":
-            include("simple_html_dom.php");
-            $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
-            if($message=="/actualidad"){
-                $url = "http://www.europapress.es/rss/rss.aspx";
-            }elseif($message=="/deportes"){
-                $url = "https://www.europapress.es/rss/rss.aspx?ch=00067";
-            }elseif($message=="/tecnologia"){
-                $url = "https://www.europapress.es/rss/rss.aspx?ch=00564";
-            }elseif($message=="/internacional"){
-                $url = "https://www.europapress.es/rss/rss.aspx?ch=00069";
-            }else{
-                $response="No es una categoria valida";
-                enviarMensajes($chatId,$response,False);
-                break;
-            }
-                $xmlstring = file_get_contents($url, false, $context);
-                $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
-                $json = json_encode($xml);
-                $array = json_decode($json, TRUE);
-
-                for ($i=0; $i < 4; $i++) { 
-                    $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
-                }
-            enviarMensajes($chatId,$titulos,False);
-        break;
-        case "Introduce":
+            // $response="Introduce la localidad que quieras consultar?";
+            // enviarMensajes($chatId,$response,True);
+            // break;
             $location = $message;
             $location=strtolower($location);
             $location = ucfirst($location);
@@ -147,8 +112,10 @@ if(empty($reply)){
                 enviarMensajes($chatId,$response,False);
             }
             
-        break;
-        case "Donde":
+        case "Temperatura\u{1F321}":
+            // $response="Donde quieres consultar la temperatura?";
+            // enviarMensajes($chatId,$response,True);
+            // break;
             $location = $message;
             $location=strtolower($location);
             $location = ucfirst($location);
@@ -194,7 +161,45 @@ if(empty($reply)){
                 $response="No has introducido correctamente el lugar";
                 enviarMensajes($chatId,$response,False);
             }
+        default:
+            $response="No te he entendido introduce /help para ver los comandos";
+            enviarMensajes($chatId,$response,False); 
+    }
+}else{
+    switch($reply_a[0]){
+        case "Que":
+            include("simple_html_dom.php");
+            $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
+            if($message=="/actualidad"){
+                $url = "http://www.europapress.es/rss/rss.aspx";
+            }elseif($message=="/deportes"){
+                $url = "https://www.europapress.es/rss/rss.aspx?ch=00067";
+            }elseif($message=="/tecnologia"){
+                $url = "https://www.europapress.es/rss/rss.aspx?ch=00564";
+            }elseif($message=="/internacional"){
+                $url = "https://www.europapress.es/rss/rss.aspx?ch=00069";
+            }else{
+                $response="No es una categoria valida";
+                enviarMensajes($chatId,$response,False);
+                break;
+            }
+                $xmlstring = file_get_contents($url, false, $context);
+                $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
+                $json = json_encode($xml);
+                $array = json_decode($json, TRUE);
+
+                for ($i=0; $i < 4; $i++) { 
+                    $titulos = $titulos."\n\n".$array['channel']['item'][$i]['title']."<a href='".$array['channel']['item'][$i]['link']."'> +info</a>";
+                }
+            enviarMensajes($chatId,$titulos,False);
         break;
+        case "Introduce":
+            enviarMensajesTeclado($chatId,$response,$k);
+            break;
+        break;
+        // case "Donde":
+           
+        // break;
         
     }
 }
