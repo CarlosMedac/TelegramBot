@@ -7,7 +7,7 @@ $chatId = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 $reply_a=explode(' ',$reply);
-
+$location;
 $keyboard=[
     ["Tiempo\u{2602}","Temperatura\u{1F321}"],
 ];
@@ -49,7 +49,7 @@ if(empty($reply)){
             // $response="Introduce la localidad que quieras consultar?";
             // enviarMensajes($chatId,$response,True);
             // break;
-            $location = $message;
+            // $location = $message;
             $location=strtolower($location);
             $location = ucfirst($location);
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
@@ -116,7 +116,7 @@ if(empty($reply)){
             // $response="Donde quieres consultar la temperatura?";
             // enviarMensajes($chatId,$response,True);
             // break;
-            $location = $message;
+            // $location = $message;
             $location=strtolower($location);
             $location = ucfirst($location);
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
@@ -194,6 +194,7 @@ if(empty($reply)){
             enviarMensajes($chatId,$titulos,False);
         break;
         case "Introduce":
+            $location = $message;
             enviarMensajesTeclado($chatId,$response,$k);
             break;
         break;
