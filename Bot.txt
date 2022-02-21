@@ -1,0 +1,3 @@
+Nombre del bot: @ServidorMedacbot
+Enlace GIT: https://github.com/CarlosMedac/TelegramBot.git
+Enlace Heroku: https://git.heroku.com/bottelegramcarlosv2.git

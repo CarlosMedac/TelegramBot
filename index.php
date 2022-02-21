@@ -7,13 +7,13 @@ $message = $update["message"]["text"];
 $reply = $update["message"]["reply_to_message"]["text"];
 $reply_a=explode(' ',$reply);
 
-$keyboard=[
+$keyboard=[//Teclado
     ["Tiempo\u{2602}","Temperatura\u{1F321}"],
 ];
 $key = array('one_time_keyboard' => false,'resize_keyboard' => true,'keyboard'=>$keyboard);
 $k=json_encode($key);
 
-if(empty($reply)){
+if(empty($reply)){//Si la respuesta esta vacia
     switch($message){
         case "hola":
             $response= "Hola humano";
@@ -26,7 +26,7 @@ if(empty($reply)){
         case "/dia":
             $dia = date('l jS \of F Y');
             $diassemana = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
-            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
+            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); //Paso los meses en Español 
             $response=$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y');
             enviarMensajes($chatId,"Hoy es ".$response,False);
             break;
@@ -57,7 +57,7 @@ if(empty($reply)){
 }else{
     switch($reply_a[0]){
         case "Que":
-            include("simple_html_dom.php");
+            include("simple_html_dom.php");//Incluye funciones para leer un archivo XML
             $context = stream_context_create(array('http' =>  array('header' => 'Accept: application/xml')));
             if($message=="/actualidad"){
                 $url = "http://www.europapress.es/rss/rss.aspx";
@@ -90,7 +90,7 @@ if(empty($reply)){
                 if($location=="Grana"){
                     $location="Granada";
                 } 
-                for($i=0;$i<count($tiempo);$i++){
+                for($i=0;$i<count($tiempo);$i++){//Cuenta todas las provincias de España para saber cual has introducido
                      $provincias = $weather["provincias"][$i]["NOMBRE_PROVINCIA"];
                      if($provincias=="Araba/Álava"){
                          $provincias="Álava";
@@ -106,11 +106,11 @@ if(empty($reply)){
                         $provincias="Valencia";
                      }
                         if($provincias == $location){
-                            $codigoProvincia = $weather["provincias"][$i]["CODPROV"];
+                            $codigoProvincia = $weather["provincias"][$i]["CODPROV"];//Coge el codigo de la provincia para acceder a ella
                             break;
                         }
                     }
-            if($codigoProvincia!=""){
+            if($codigoProvincia!=""){//Si no esta vacio el codigo de provincia
             $tiempoProvincia = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias/".$codigoProvincia),true);
             $tiempoDefinitivo = $tiempoProvincia["ciudades"][0]["stateSky"]["description"];
             $tiempoenMinuscula=strtolower($tiempoDefinitivo);
@@ -195,7 +195,7 @@ if(empty($reply)){
         
     }
 }
-function enviarMensajes($chatId,$response,$respuesta){
+function enviarMensajes($chatId,$response,$respuesta){//Envia los mensajes sin respuesta o con ella
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
     $reply_mark = array("force_reply"=>true);
     if ($respuesta==True){
@@ -204,7 +204,7 @@ function enviarMensajes($chatId,$response,$respuesta){
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&text=".urlencode($response));
     }
 }
-function enviarMensajesTeclado($chatId,$response,&$k = ''){
+function enviarMensajesTeclado($chatId,$response,&$k = ''){//Envia los mensajes y abre el teclado
     $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
     if(isset($k)){
         file_get_contents($path."/sendmessage?chat_id=".$chatId."&parse_mode=HTML&reply_markup=".$k."&text=".urlencode($response));
