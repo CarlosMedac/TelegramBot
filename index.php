@@ -85,7 +85,6 @@ if(empty($reply)){
         break;
         case "Introduce":
             $location = $message;
-            $location=strtolower($location);
             $location = ucfirst($location);
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
             $tiempo = $weather["provincias"];
@@ -150,7 +149,6 @@ if(empty($reply)){
         break;
         case "Donde":
             $location = $message;
-            $location=strtolower($location);
             $location = ucfirst($location);
             $weather = json_decode(file_get_contents("https://www.el-tiempo.net/api/json/v2/provincias"),true);
             $tiempo = $weather["provincias"];
