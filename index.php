@@ -136,6 +136,8 @@ if(empty($reply)){
                 $iconoTiempo="\xE2\x98\x81";
             }elseif((in_array("nieve",$tiempoDefinitivo_a))){
                 $iconoTiempo="\u{1F328}";
+            }elseif((in_array("tormenta",$tiempoDefinitivo_a))){
+                $iconoTiempo="\u{1F329}";
             }else{
                 $iconoTiempo="";
             }
