@@ -1,5 +1,4 @@
 <?php
-//https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c/setwebhook?url=https://bottelegramcarlosv2.herokuapp.com
 $path = "https://api.telegram.org/bot5151110160:AAG_KjSmkluICZF9iEoelxRRt6XvKEN8X5c";
 $update = json_decode(file_get_contents("php://input"), TRUE);
 
@@ -29,7 +28,7 @@ if(empty($reply)){
             $diassemana = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
             $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");  
             $response=$diassemana[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y');
-            enviarMensajes($chatId,"Hoy es".$response,False);
+            enviarMensajes($chatId,"Hoy es ".$response,False);
             break;
         case "/help":
             $response= "Los comandos que puedes utilizar son:\n/hora\n/dia\n/tiempo\n/noticias";
